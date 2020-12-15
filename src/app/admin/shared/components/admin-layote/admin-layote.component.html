@@ -1,3 +1,15 @@
-<h1>Admin Layout</h1>
+<nav class="navbar bg-primary">
+  <h1>
+    <a routerLink="/">AlgoBlog</a>
+  </h1>
 
-<router-outlet></router-outlet>
+  <ul>
+    <li><a [routerLink]="['/admin', 'dashboard']">Dashboard</a></li>
+    <li><a [routerLink]="['/admin', 'create']">Create</a></li>
+    <li><a href="#" (click)="logout($event)">Exit</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
