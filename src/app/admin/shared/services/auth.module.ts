@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {FBAuthResponse, User} from '../../login-page/interfaces';
-import {Observable} from 'rxjs';
+import {Observable, Subject, throwError} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {catchError, tap} from 'rxjs/operators';
 
@@ -9,6 +9,8 @@ import {catchError, tap} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
+
+  public error$: Subject<string> = new Subject<string>();
 
   constructor(private http: HttpClient) {
   }
@@ -29,7 +31,8 @@ export class AuthService {
       .pipe(
         // @ts-ignore
         tap(this.setToken),
-        catchError()
+        // @ts-ignore
+        catchError(this.handleError.bind(this))
       );
   }
 
@@ -41,7 +44,23 @@ export class AuthService {
     return !!this.token;
   }
 
-  private handleError(): void {}
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    const {message} = error.error.error;
+
+    switch (message) {
+      case 'EMAIL_NOT_FOUND':
+        this.error$.next('Email is not valid');
+        break;
+      case 'INVALID_EMAIL':
+        this.error$.next('Email doesn`t exists');
+        break;
+      case 'INVALID_PASSWORD':
+        this.error$.next('Password doesn`t exists');
+        break;
+    }
+
+    return throwError(error);
+  }
 
   private setToken(response: FBAuthResponse | null): void {
     if (response) {

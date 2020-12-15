@@ -1,6 +1,10 @@
 <form action="" class="card" [formGroup]="form" (ngSubmit)="submit()">
   <h2>Admin Panel</h2>
 
+  <div class="alert alert-danger" *ngIf="auth.error$ | async as error">
+    {{error}}
+  </div>
+
   <div [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}" class="form-control">
     <label for="email">Email:</label>
     <input formControlName="email" name="email" id="email" type="text">
