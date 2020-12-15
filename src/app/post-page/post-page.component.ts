@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-post-page',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(public router: Router) {
+  }
 
   ngOnInit(): void {
   }
 
+  returnToMain(): void {
+    this.router.navigate(['/']);
+  }
 }
