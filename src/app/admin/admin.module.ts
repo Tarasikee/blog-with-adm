@@ -11,6 +11,7 @@ import {LoginPageComponent} from './login-page/login-page.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {CreatePageComponent} from './create-page/create-page.component';
 import {EditPageComponent} from './edit-page/edit-page.component';
+import {AuthGuard} from './shared/services/auth.guard';
 
 @NgModule({
   declarations: [
@@ -30,9 +31,9 @@ import {EditPageComponent} from './edit-page/edit-page.component';
         path: '', component: AdminLayoteComponent, children: [
           {path: '', redirectTo: '/admin/login', pathMatch: 'full'},
           {path: 'login', component: LoginPageComponent},
-          {path: 'create', component: CreatePageComponent},
-          {path: 'dashboard', component: DashboardComponent},
-          {path: 'post/:id/edit', component: EditPageComponent},
+          {path: 'create', component: CreatePageComponent, canActivate: [AuthGuard]},
+          {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+          {path: 'post/:id/edit', component: EditPageComponent, canActivate: [AuthGuard]},
         ]
       }
     ])
@@ -41,7 +42,8 @@ import {EditPageComponent} from './edit-page/edit-page.component';
     RouterModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuard
   ]
 })
 export class AdminModule {
