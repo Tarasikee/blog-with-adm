@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {IPost} from '../shared/interfaces';
+import {IPost} from '../../shared/interfaces';
 
 @Component({
   selector: 'app-create-page',

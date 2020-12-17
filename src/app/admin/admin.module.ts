@@ -4,7 +4,7 @@ import {AuthService} from './shared/services/auth.module';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {SharedModule} from '../shared/services/shared-module.service';
+import {SharedModule} from '../shared/shared.module';
 
 import {AdminLayoteComponent} from './shared/components/admin-layote/admin-layote.component';
 import {LoginPageComponent} from './login-page/login-page.component';
