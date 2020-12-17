@@ -7,7 +7,7 @@
 
     <div *ngIf="form.get('title').touched && form.get('title').invalid" class="validation">
       <small *ngIf="form.get('title').errors.required">
-        Email field is blank
+        Name of post is required
       </small>
     </div>
   </div>
@@ -22,7 +22,7 @@
 
     <div *ngIf="form.get('author').touched && form.get('author').invalid" class="validation">
       <small *ngIf="form.get('author').errors.required">
-        Email field is blank
+        Author is required
       </small>
     </div>
   </div>
