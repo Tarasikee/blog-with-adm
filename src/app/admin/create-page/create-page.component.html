@@ -2,7 +2,7 @@
   <h1>Create New Post</h1>
 
   <div [ngClass]="{invalid: form.get('title').touched && form.get('title').invalid}" class="form-control">
-    <label for="title">Email:</label>
+    <label for="title">Title:</label>
     <input formControlName="title" id="title" type="text">
 
     <div *ngIf="form.get('title').touched && form.get('title').invalid" class="validation">
@@ -14,10 +14,11 @@
 
   <div class="form-control">
     <label>Post Content</label>
+    <quill-editor formControlName="text"></quill-editor>
   </div>
 
   <div [ngClass]="{invalid: form.get('author').touched && form.get('author').invalid}" class="form-control">
-    <label for="author">Email:</label>
+    <label for="author">Author:</label>
     <input formControlName="author" id="author" type="text">
 
     <div *ngIf="form.get('author').touched && form.get('author').invalid" class="validation">
