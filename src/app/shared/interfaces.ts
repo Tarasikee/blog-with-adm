@@ -18,5 +18,5 @@ export interface IPost {
 }
 
 export interface FBCreateResponse {
-  name: string;
+  name?: string;
 }

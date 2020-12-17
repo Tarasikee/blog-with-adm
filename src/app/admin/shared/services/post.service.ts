@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {IPost} from '../../../shared/interfaces';
+import {FBCreateResponse, IPost} from '../../../shared/interfaces';
 import {environment} from '../../../../environments/environment';
-import { map } from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 
@@ -12,7 +12,14 @@ export class PostService {
   }
 
   create(post: IPost): Observable<IPost> {
-    return this.http.post<IPost>(`${environment.FBDBUrl}/posts.json`, post)
-      .pipe(map((res: ) => {}));
+    return this.http.post(`${environment.FBDBUrl}/posts.json`, post)
+      .pipe(map((res: FBCreateResponse) => {
+        const newPost: IPost = {
+          ...post,
+          id: res.name,
+          date: new Date(post.date)
+        };
+        return newPost;
+      }));
   }
 }
