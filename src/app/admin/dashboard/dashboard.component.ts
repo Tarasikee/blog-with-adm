@@ -11,8 +11,9 @@ import {Router} from '@angular/router';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  posts!: IPost[];
+  posts: IPost[] = [];
   pSub!: Subscription;
+  searchStr = '';
 
   constructor(
     private postService: PostService,
@@ -21,9 +22,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.pSub = this.postService.getPosts().subscribe(posts => {
-      this.posts = posts;
-    });
+    this.pSub = this.postService.getPosts()
+      .subscribe(posts => {
+        this.posts = posts;
+      });
   }
 
   ngOnDestroy(): void {
@@ -33,7 +35,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   removePost(id: string): void {
-
+    console.log(id);
   }
 
   openPost(id: string): void {

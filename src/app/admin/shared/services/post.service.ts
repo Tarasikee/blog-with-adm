@@ -30,7 +30,7 @@ export class PostService {
           return Object
             .keys(response)
             .map(key => ({
-              ... response[key],
+              ...response[key],
               id: key,
               date: new Date(response[key].date)
             }));
