@@ -23,6 +23,10 @@ export class PostService {
       }));
   }
 
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${environment.FBDBUrl}/posts/${id}.json`);
+  }
+
   getPosts(): Observable<IPost[]> {
     return this.http.get<IPost>(`${environment.FBDBUrl}/posts.json`)
       .pipe(

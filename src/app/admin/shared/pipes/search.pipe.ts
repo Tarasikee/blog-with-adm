@@ -7,7 +7,7 @@ import {IPost} from 'src/app/shared/interfaces';
 
 export class SearchPipe implements PipeTransform {
   transform(posts: IPost[], search = ''): IPost[] {
-    if (search.trim()) {
+    if (!search.trim()) {
       return posts;
     }
 

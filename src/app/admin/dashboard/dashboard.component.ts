@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   posts: IPost[] = [];
   pSub!: Subscription;
+  dSub!: Subscription;
   searchStr = '';
 
   constructor(
@@ -28,17 +29,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
-    if (this.pSub) {
-      this.pSub.unsubscribe();
-    }
-  }
-
   removePost(id: string): void {
-    console.log(id);
+    this.dSub = this.postService.delete(id).subscribe(() => {
+      this.posts = this.posts.filter(post => post.id !== id);
+    });
   }
 
   openPost(id: string): void {
     this.router.navigate(['/admin', 'post', id, 'edit']);
+  }
+
+  ngOnDestroy(): void {
+    if (this.pSub) {
+      this.pSub.unsubscribe();
+    }
+
+    if (this.dSub) {
+      this.dSub.unsubscribe();
+    }
   }
 }
