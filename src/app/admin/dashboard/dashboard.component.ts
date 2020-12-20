@@ -45,7 +45,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     if (this.dSub) {
-      this.dSub.unsubscribe();
-    }
+      this.dSub.unsubscribe();    }
   }
 }

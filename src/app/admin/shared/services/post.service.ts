@@ -23,8 +23,12 @@ export class PostService {
       }));
   }
 
-  delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${environment.FBDBUrl}/posts/${id}.json`);
+  update(post: IPost): Observable<IPost> {
+    return this.http.patch<IPost>(`${environment.FBDBUrl}/posts/${post.id}.json`, post);
+  }
+
+  delete(id: string): Observable<IPost> {
+    return this.http.delete<IPost>(`${environment.FBDBUrl}/posts/${id}.json`);
   }
 
   getPosts(): Observable<IPost[]> {
@@ -40,5 +44,15 @@ export class PostService {
             }));
         })
       );
+  }
+
+  getPostById(id: string): Observable<IPost> {
+    return this.http.get<IPost>(`${environment.FBDBUrl}/posts/${id}.json`)
+      .pipe(map((post: IPost) => {
+        return {
+          ...post, id,
+          date: new Date(post.date)
+        };
+      }));
   }
 }

@@ -37,6 +37,6 @@ export class CreatePageComponent implements OnInit {
     this.postService.create(post)
       .subscribe(p => console.log(p));
 
-    console.log(post);
+    this.form.reset();
   }
 }
