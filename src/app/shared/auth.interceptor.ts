@@ -3,7 +3,7 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {Observable, throwError} from 'rxjs';
 import {AuthService} from '../admin/shared/services/auth.module';
 import {Router} from '@angular/router';
-import {catchError} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 
 @Injectable()
 
@@ -16,13 +16,17 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // debugger;
     if (this.auth.isAuth()) {
       req = req.clone({
-        setParams: this.auth.token
+        setParams: {auth: this.auth.token}
       });
     }
     return next.handle(req)
       .pipe(
+        tap(() => {
+          console.log('Intercept');
+        }),
         catchError((error: HttpErrorResponse) => {
           console.log('Interceptor error', error);
           if (error.status === 401) {
