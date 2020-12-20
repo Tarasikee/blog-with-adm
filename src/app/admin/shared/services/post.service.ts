@@ -22,4 +22,22 @@ export class PostService {
         return newPost;
       }));
   }
+
+  getPosts(): Observable<IPost[]> {
+    return this.http.get<IPost>(`${environment.FBDBUrl}/posts.json`)
+      .pipe(
+        map((response: { [key: string]: any }) => {
+
+          Object
+            .keys(response)
+            .map(key => ({
+              ... response[key],
+              id: key,
+              date: new Date(response[key].date)
+            }));
+
+          return [];
+        })
+      );
+  }
 }
