@@ -3,6 +3,7 @@ import {PostService} from '../shared/services/post.service';
 import {IPost} from '../../shared/interfaces';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
+import {AlertService} from '../shared/services/alert.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +19,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private postService: PostService,
-    private router: Router
+    private router: Router,
+    private alert: AlertService
   ) {
   }
 
@@ -32,6 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   removePost(id: string): void {
     this.dSub = this.postService.delete(id).subscribe(() => {
       this.posts = this.posts.filter(post => post.id !== id);
+      this.alert.danger('Post has been deleted');
     });
   }
 

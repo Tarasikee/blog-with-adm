@@ -5,6 +5,7 @@ import {PostService} from '../shared/services/post.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {IPost} from '../../shared/interfaces';
 import {Subscription} from 'rxjs';
+import {AlertService} from '../shared/services/alert.service';
 
 @Component({
   selector: 'app-edit-page',
@@ -20,7 +21,8 @@ export class EditPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private postService: PostService
+    private postService: PostService,
+    private alert: AlertService
   ) {
   }
 
@@ -56,6 +58,7 @@ export class EditPageComponent implements OnInit, OnDestroy {
       text: this.form.value.text,
       title: this.form.value.title
     }).subscribe(() => {
+        this.alert.warning('Post has been updated');
         this.submitted = false;
       }
     );
